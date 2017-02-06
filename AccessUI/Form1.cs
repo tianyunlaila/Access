@@ -33,15 +33,22 @@ namespace AccessUI
 
         private void Open()
         {
-            List<string> str = sb.OpenFile();
-            if (str == null)
+            try
             {
-                return;
+                List<string> str = sb.OpenFile();
+                if (str == null)
+                {
+                    return;
+                }
+                lblFileName.Text = str[0];
+                lblFileName2.Text = str[0];
+                MyString.fileName = lblFileName.Text;
+                txtTubeType.Text = str[1];
             }
-            lblFileName.Text = str[0];
-            lblFileName2.Text = str[0];
-            MyString.fileName = lblFileName.Text;
-            txtTubeType.Text = str[1];
+            catch
+            {
+            }
+            
             connect = "provider=microsoft.jet.oledb.4.0;data source=" + lblFileName.Text;
             MyString.connectString = connect;
         }

@@ -32,7 +32,11 @@ namespace AccessDAL
                 tubeType += ",";
             }
             list.Add(fileName);
-            list.Add(tubeType.Remove(tubeType.LastIndexOf(",")));
+            if (tubeType.Length>2)
+            {
+                list.Add(tubeType.Remove(tubeType.LastIndexOf(",")));
+            }
+            
             return list;
         }
 
