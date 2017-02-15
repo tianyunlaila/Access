@@ -64,11 +64,24 @@ namespace AccessDAL
             return SqlHelper.ExecuteNonQuery(connect, sqls.ToArray());
         }
 
-        public int AddGroupNumber(string groupNumber, string connect)
+        public int AddGroupNumber(string groupNumber,string tubeType, string connect)
         {
-            List<string> list = SqlHelper.GetListFromDB(connectsupport, "批量命令", "添加组号");
-            List<string> sqls = Tool.ReplaceList(list, "ZCC26", groupNumber);
-            return SqlHelper.ExecuteNonQuery(connect, sqls.ToArray());
+            List<string> sqlList = new List<string>();
+            string[] arrayTube = tubeType.Split(',');
+            List<string> listTube = new List<string>();
+            foreach (string str in arrayTube)
+            {
+                if (str != "")
+                    listTube.Add(str);
+            }
+            foreach (string str in listTube)
+            {
+                sqlList.Add(string.Format("update {0}_point set 物探点号=(mid(物探点号,1,2)+'{1}'+mid(物探点号,3,20))",str, groupNumber));
+                sqlList.Add(string.Format("update {0}_line set 起点点号=(mid(起点点号,1,2)+'{1}'+mid(起点点号,3,20)),连接方向=(mid(连接方向,1,2)+'{1}'+mid(连接方向,3,20))", str, groupNumber));
+            }
+
+
+            return SqlHelper.ExecuteNonQuery(connect, sqlList.ToArray());
         }
 
         public int UpdateFromDB(string connect, string tableName, string column)

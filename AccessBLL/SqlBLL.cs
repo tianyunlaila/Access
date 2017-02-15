@@ -28,9 +28,9 @@ namespace AccessBLL
             return sd.UpdateSqls(connect, sqls);
         }
 
-        public int AddGroupNumber(string groupNumber, string connect)
+        public int AddGroupNumber(string groupNumber,string tubeType, string connect)
         {
-            return sd.AddGroupNumber(groupNumber, connect);
+            return sd.AddGroupNumber(groupNumber,tubeType, connect);
         }
 
         public int UpdateFromDB(string connect, string tableName, string column)

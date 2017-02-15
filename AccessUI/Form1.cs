@@ -81,7 +81,7 @@ namespace AccessUI
 
         private void btnAddGroupNumber_Click(object sender, EventArgs e)
         {
-            int success = sb.AddGroupNumber(txtGroupNumber.Text, connect);
+            int success = sb.AddGroupNumber(txtGroupNumber.Text,txtTubeType.Text, connect);
             MessageBox.Show("更改了" + success + "条数据！");
         }
 
